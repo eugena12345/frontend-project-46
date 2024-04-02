@@ -3,6 +3,10 @@
 
 //getOptions();
 import { program } from 'commander';
+import parseFiles from '../src/parseFile.js';
+
+
+
 
 program
     .name('gendiff')
@@ -13,10 +17,7 @@ program
     .arguments('<filepath1>', 'path to the file')
     .arguments('<filepath2>', 'path to the file')
     .option('-f, --format [type]', 'output format')
-//.option('-a, --arison', 'output the version number')
-//   .action((str, options) => {
-//     const limit = options.first ? 1 : undefined;
-//     console.log(str.split(options.separator, limit));
-//   });
+    .action(parseFiles);
+
 
 program.parse();
