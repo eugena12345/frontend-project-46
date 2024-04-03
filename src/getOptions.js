@@ -1,5 +1,5 @@
 const getOptions = () => {
-    console.log(`hi there`)
-}
+  console.log('hi there');
+};
 
 export default getOptions;
