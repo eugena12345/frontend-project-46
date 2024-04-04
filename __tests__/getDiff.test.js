@@ -1,3 +1,4 @@
+import  { test, expect } from '@jest/globals';
 import getDiff from '../src/getDiff.js';
 
 const obj1 = {
