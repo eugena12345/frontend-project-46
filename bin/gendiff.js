@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { program } from 'commander';
-import parseFiles from '../src/parseFile.js';
+import checkFiles from '../src/checkFiles.js';
 
 program
   .name('gendiff')
@@ -10,6 +10,6 @@ program
   .arguments('<filepath1>', 'path to the file')
   .arguments('<filepath2>', 'path to the file')
   .option('-f, --format [type]', 'output format')
-  .action(parseFiles);
+  .action(checkFiles);
 
 program.parse();
