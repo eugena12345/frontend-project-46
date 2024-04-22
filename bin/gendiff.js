@@ -9,7 +9,7 @@ program
   .version('1.0.0')
   .arguments('<filepath1>', 'path to the file')
   .arguments('<filepath2>', 'path to the file')
-  .option('-f, --format [type]', 'output format')
+  .option('-f, --format <type>', 'output format', 'stylish')
   .action(checkFiles);
 
 program.parse();
