@@ -1,5 +1,5 @@
 import { test, expect } from '@jest/globals';
-import getDiff from '../src/getDiff.js';
+import checkFiles from '../src/checkFiles.js';
 
 const obj1 = {
   host: 'hexlet.io',
@@ -68,6 +68,6 @@ const result2 = `{
     }
 }`;
 
-test('getDiff', () => {
-  expect(getDiff(obj1, obj2)).toEqual(result2);
+test('checkFiles', () => {
+  expect(checkFiles(obj1, obj2, 'stylish')).toEqual(result2);
 });
