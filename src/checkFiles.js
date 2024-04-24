@@ -1,4 +1,3 @@
-import getDiff from './getDiff.js';
 import parseFiles from '../parsers/parseFiles.js';
 import render from './formatter/index.js';
 
