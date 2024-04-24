@@ -67,7 +67,9 @@ const result2 = `{
         fee: 100500
     }
 }`;
+const pathFile1 = '__tests__/__fixtures__/file1.json';
+const pathFile2 = '__tests__/__fixtures__/file2.json';
 
 test('checkFiles', () => {
-  expect(checkFiles('__tests__/__fixtures__/file1.json', '__tests__/__fixtures__/file2.json', { format: 'stylish' })).toEqual(result2);
+  expect(checkFiles(pathFile1, pathFile2, { format: 'stylish' })).toEqual(result2);
 });
