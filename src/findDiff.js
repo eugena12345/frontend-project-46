@@ -1,10 +1,13 @@
-import { _union } from 'lodash';
+import union from 'lodash/union.js';
 
 const findDiff = (obj1, obj2) => {
-  const commonKeys = _union(Object.keys(obj1), Object.keys(obj2));
+  const key1 = Object.keys(obj1);
+  const key2 = Object.keys(obj2);
+  const commonKeys = union(key1, key2);
   const sortedKeys = commonKeys.sort();
   const result = sortedKeys.map((key) => {
-    if (!obj2[key]) {
+    if (!Object.hasOwn(obj2, key)) { // тогда не обрабатывае !obj2[key] или
+      // !Object.prototype.hasOwnProperty.call(obj2, key)
       return {
         name: key,
         type: 'removed',
@@ -13,7 +16,7 @@ const findDiff = (obj1, obj2) => {
         children: null,
       };
     }
-    if (!obj1[key]) {
+    if (!Object.hasOwn(obj1, key)) { // !obj1[key] или !obj1.hasOwnProperty(key)
       return {
         name: key,
         type: 'added',
@@ -25,16 +28,29 @@ const findDiff = (obj1, obj2) => {
     if (obj1[key] === obj2[key]) {
       return {
         name: key,
-        type: 'added',
+        type: 'unchanged',
         beforeValue: obj1[key],
         afterValue: obj2[key],
         children: null,
       };
     }
-    return key; // убрать потом
+    if (typeof (obj1[key]) === 'object' && typeof (obj2[key]) === 'object' && obj1[key] !== null && obj1[key] !== null) {
+      return {
+        name: key,
+        type: 'changed',
+        beforeValue: obj1[key],
+        afterValue: obj2[key],
+        children: findDiff(obj1[key], obj2[key]),
+      };
+    }
+    return {
+      name: key,
+      type: 'changed',
+      beforeValue: obj1[key],
+      afterValue: obj2[key],
+      children: null,
+    };
   });
   return result;
-
-  // name, type, beforeValue, afterValue, children
 };
 export default findDiff;
