@@ -1,4 +1,5 @@
 import union from 'lodash/union.js';
+import has from 'lodash/has.js';
 
 const findDiff = (obj1, obj2) => {
   const key1 = Object.keys(obj1);
@@ -6,8 +7,7 @@ const findDiff = (obj1, obj2) => {
   const commonKeys = union(key1, key2);
   const sortedKeys = commonKeys.sort();
   const result = sortedKeys.map((key) => {
-    if (!Object.hasOwn(obj2, key)) { // тогда не обрабатывае !obj2[key] или
-      // !Object.prototype.hasOwnProperty.call(obj2, key)
+    if (!has(obj2, key)) {
       return {
         name: key,
         type: 'removed',
@@ -16,7 +16,7 @@ const findDiff = (obj1, obj2) => {
         children: null,
       };
     }
-    if (!Object.hasOwn(obj1, key)) { // !obj1[key] или !obj1.hasOwnProperty(key)
+    if (!has(obj1, key)) {
       return {
         name: key,
         type: 'added',
