@@ -1,5 +1,10 @@
 const getValueForRender = (value) => {
   let valueForRender;
+  if (value === null) {
+    console.log(value);
+    return 'null';
+  }
+  // вопрос почему не получается вернуть null без кавычек
   const typeOfValue = typeof (value);
   // console.log(`typeOfValue ${typeOfValue} value =  ${value}`);
   switch (typeOfValue) {
@@ -27,15 +32,15 @@ const renderPlain = (different, path = '') => {
       return renderPlain(element.children, newPath);
     }
     if (element.type === 'removed') {
-      return (`Property '${path}${element.name}' was removed;\n`);
+      return (`Property '${path}${element.name}' was removed\n`);
     }
     if (element.type === 'added') {
-      return (`Property '${path}${element.name}' was added with value: ${after};\n`);
+      return (`Property '${path}${element.name}' was added with value: ${after}\n`);
     }
     if (element.type === 'changed') {
-      return (`Property '${path}${element.name}' was updated. From ${before} to ${after};\n`);
+      return (`Property '${path}${element.name}' was updated. From ${before} to ${after}\n`);
     }
-    return null;
+    return '';
   }).join('');
   return result;
 };
