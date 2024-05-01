@@ -80,6 +80,7 @@ Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]
 `;
+// здесь есть пустая строка. нужно ли это исправлять???
 
 const pathFile1 = '__tests__/__fixtures__/file1.json';
 const pathFile2 = '__tests__/__fixtures__/file2.json';
