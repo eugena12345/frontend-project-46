@@ -1,4 +1,5 @@
-import { test, expect } from '@jest/globals';
+import { test, expect, beforeAll } from '@jest/globals';
+import fs from 'fs';
 import checkFiles from '../src/checkFiles.js';
 
 // const obj1 = {
@@ -67,28 +68,22 @@ const result2 = `{
         fee: 100500
     }
 }`;
-
-const resultPlain = `Property 'common.follow' was added with value: false
-Property 'common.setting2' was removed
-Property 'common.setting3' was updated. From true to null
-Property 'common.setting4' was added with value: 'blah blah'
-Property 'common.setting5' was added with value: [complex value]
-Property 'common.setting6.doge.wow' was updated. From '' to 'so much'
-Property 'common.setting6.ops' was added with value: 'vops'
-Property 'group1.baz' was updated. From 'bas' to 'bars'
-Property 'group1.nest' was updated. From [complex value] to 'str'
-Property 'group2' was removed
-Property 'group3' was added with value: [complex value]
-`;
+let resultPlain;
+beforeAll(() => {
+  resultPlain = fs.readFileSync('__tests__/__fixtures__/plainResult', 'utf-8');
+});
 // здесь есть пустая строка. нужно ли это исправлять???
 
-const pathFile1 = '__tests__/__fixtures__/file1.json';
-const pathFile2 = '__tests__/__fixtures__/file2.json';
+const fileExtention = ['yaml', 'json'];
+fileExtention.forEach((ext) => {
+  const pathFile1 = `__tests__/__fixtures__/file1.${ext}`;
+  const pathFile2 = `__tests__/__fixtures__/file2.${ext}`;
 
-test('checkFiles', () => {
-  expect(checkFiles(pathFile1, pathFile2, { format: 'stylish' })).toEqual(result2);
-});
+  test(`${ext} test stylish format`, () => {
+    expect(checkFiles(pathFile1, pathFile2, { format: 'stylish' })).toEqual(result2);
+  });
 
-test('test plain', () => {
-  expect(checkFiles(pathFile1, pathFile2, { format: 'plain' })).toEqual(resultPlain);
+  test(`${ext} test plain format`, () => {
+    expect(checkFiles(pathFile1, pathFile2, { format: 'plain' })).toEqual(resultPlain);
+  });
 });
