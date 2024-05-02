@@ -1,8 +1,8 @@
 const getValueForRender = (value) => {
   let valueForRender;
   if (value === null) {
-    console.log(value);
-    return 'null';
+    // console.log(value);
+    return null;
   }
   // вопрос почему не получается вернуть null без кавычек
   const typeOfValue = typeof (value);
@@ -40,8 +40,14 @@ const renderPlain = (different, path = '') => {
     if (element.type === 'changed') {
       return (`Property '${path}${element.name}' was updated. From ${before} to ${after}\n`);
     }
-    return '';
-  }).join('');
+    if (element.type === 'unchanged') {
+      console.log('hi');
+    }
+    return `!!!!!!!!!!!!!!!! element.type   ${element.type}`;
+  });
+    // .join('');
+  console.log(`result ${result}`);
+  // ////////////// выяснить причину
   return result;
 };
 export default renderPlain;
