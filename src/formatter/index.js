@@ -1,11 +1,12 @@
 import renderStylish from './renderStylish.js';
-import renderPlain from './renderPlain.js';
-import renderJson from './renderJson.js';
+// import renderPlain from './renderPlain.js';
+// import renderJson from './renderJson.js';
 
-const actions = {
-  stylish: renderStylish,
-  plain: renderPlain,
-  json: renderJson,
-};
+// const actions = {
+//   stylish: renderStylish,
+//   plain: renderPlain,
+//   json: renderJson,
+// };
 
-export default (format, different) => actions[format](different);
+export default (format, different) => renderStylish(different);
+// actions[format]
