@@ -23,13 +23,13 @@ const getValueForRender = (value) => {
   return valueForRender;
 };
 
-const renderPlain = (different, path = '') => {
+const renderPlain1 = (different, path = '') => {
   const result = different.map((element) => {
     const newPath = `${path}${element.name}.`;
     const before = getValueForRender(element.beforeValue);
     const after = getValueForRender(element.afterValue);
     if (element.children) {
-      return renderPlain(element.children, newPath);
+      return renderPlain1(element.children, newPath);
     }
     if (element.type === 'removed') {
       return (`Property '${path}${element.name}' was removed\n`);
@@ -41,13 +41,16 @@ const renderPlain = (different, path = '') => {
       return (`Property '${path}${element.name}' was updated. From ${before} to ${after}\n`);
     }
     if (element.type === 'unchanged') {
-      console.log('hi');
+      // console.log('hi');
     }
-    return `!!!!!!!!!!!!!!!! element.type   ${element.type}`;
-  });
-    // .join('');
-  console.log(`result ${result}`);
-  // ////////////// выяснить причину
+    return '';
+  }).join('');
   return result;
 };
+
+const renderPlain = (different) => {
+  const resultString = renderPlain1(different);
+  return resultString.trim();
+};
+
 export default renderPlain;
