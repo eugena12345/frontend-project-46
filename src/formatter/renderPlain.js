@@ -42,8 +42,9 @@ const renderPlain1 = (different, path = '') => {
     }
     if (element.type === 'unchanged') {
       // console.log('hi');
+      // вернуть пустую строчку
     }
-    return '';
+    return '';// выбросить исключение (throw err)
   }).join('');
   return result;
 };

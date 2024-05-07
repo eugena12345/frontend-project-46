@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/eugena12345/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/eugena12345/frontend-project-46/actions)",
-  "main": "./src/formatter/index.js",
+  "main": "./src/checkFiles.js",
   "type": "module",
   "bin": {
     "gendiff": "bin/gendiff.js"
