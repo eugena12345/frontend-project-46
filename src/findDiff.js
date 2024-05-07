@@ -2,8 +2,8 @@ import union from 'lodash/union.js';
 import has from 'lodash/has.js';
 
 const findDiff = (obj1, obj2) => {
-  const key1 = Object.keys(obj1);
-  const key2 = Object.keys(obj2);
+  const key1 = Object.keys(obj1 ?? {});
+  const key2 = Object.keys(obj2 ?? {});
   const commonKeys = union(key1, key2);
   const sortedKeys = commonKeys.sort();
   const result = sortedKeys.map((key) => {
