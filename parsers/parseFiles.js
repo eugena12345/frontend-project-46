@@ -8,6 +8,8 @@ const getExtension = (filePath) => {
 };
 
 const getParsedFileByExtention = (extention, data) => {
+  // console.log(result1);
+  // console.log(result2);
   let result;
   if (extention === 'json') {
     result = JSON.parse(data);
@@ -26,6 +28,8 @@ const parseFiles = (f1, f2) => {
 
   const extFile1 = getExtension(f1);
   const extFile2 = getExtension(f2);
+  console.log(`extFile1 ${extFile1}`);
+  console.log(`extFile2 ${extFile2}`);
   const data1 = readFileSync(resolvedPath1);
   const data2 = readFileSync(resolvedPath2);
   const result1 = getParsedFileByExtention(extFile1, data1);
