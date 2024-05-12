@@ -5,8 +5,8 @@ import render from './formatter/index.js';
 const checkFiles = (f1, f2, option = { format: 'stylish' }) => {
   const { result1, result2 } = parseFiles(f1, f2);
   const different = findDiff(result1, result2);
-  console.log(`option.format ${option.format}`);
+  console.log(`option ${option}`);
   // console.log(render(option.format, different));
-  return render(option.format, different);
+  return render(different, option.format);
 };
 export default checkFiles;

@@ -8,7 +8,7 @@ const actions = {
   json: renderJson,
 };
 
-export default (format, different) => {
+export default (different, format) => {
   console.log(`format ${format}`);
   return actions[format](different);
 };
