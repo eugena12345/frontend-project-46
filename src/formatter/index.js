@@ -8,7 +8,4 @@ const actions = {
   json: renderJson,
 };
 
-export default (different, format = 'stylish') => {
-  console.log(`format in index ${format}`);
-  return actions[format](different);
-};
+export default (different, format = 'stylish') => actions[format](different);

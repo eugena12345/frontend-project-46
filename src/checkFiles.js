@@ -9,8 +9,8 @@ const checkFiles = (f1, f2, option = { format: 'stylish' }) => {
   // if (!option.format) {
   //   format = 'stylish';
   // }
-  console.log(`option in checkFiles ${option}`);
-  console.log(`option.format in checkFiles ${option.format}`);
+  // console.log(`option in checkFiles ${option}`);
+  // console.log(`option.format in checkFiles ${option.format}`);
   // возвращает 'stylish' #58 буз формата
   console.log(render(different, option.format || option));
   return render(different, option.format || option);
