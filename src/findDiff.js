@@ -9,7 +9,7 @@ const findDiff = (obj1, obj2) => {
   // const sortedKeys1 = sortedUniq(commonKeys);
   // console.log(`sortedKeys1 = ${sortedKeys1}`);
   const sortedKeys = commonKeys.sort();
-  console.log(`sortedKeys = ${sortedKeys}`);
+  // console.log(`sortedKeys = ${sortedKeys}`);
   const result = sortedKeys.map((key) => {
     if (!has(obj2, key)) {
       return {
