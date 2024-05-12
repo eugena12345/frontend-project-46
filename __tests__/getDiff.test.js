@@ -76,8 +76,10 @@ beforeAll(() => {
 
 const fileExtention = ['yaml', 'json'];
 fileExtention.forEach((ext) => {
-  const pathFile1 = `__tests__/__fixtures__/file1.${ext}`;
-  const pathFile2 = `__tests__/__fixtures__/file2.${ext}`;
+  const pathFile1 = `__fixtures__/file1.${ext}`;
+  const pathFile2 = `__fixtures__/file2.${ext}`;
+  // было с папкой тест const pathFile1 = `__tests__/__fixtures__/file1.${ext}`;
+  // было с папкой тест const pathFile2 = `__tests__/__fixtures__/file2.${ext}`;
 
   test(`${ext} test stylish format`, () => {
     expect(checkFiles(pathFile1, pathFile2, { format: 'stylish' })).toEqual(result2);
