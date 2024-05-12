@@ -8,4 +8,4 @@ const actions = {
   json: renderJson,
 };
 
-export default (different, format) => actions[format](different);
+export default (different, format = 'stylish') => actions[format](different);
