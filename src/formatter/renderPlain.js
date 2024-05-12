@@ -1,5 +1,5 @@
 const getValueForRender = (value) => {
-  let valueForRender;
+  // let valueForRender;
   if (value === null) {
     // console.log(value);
     return null;
@@ -9,18 +9,22 @@ const getValueForRender = (value) => {
   // console.log(`typeOfValue ${typeOfValue} value =  ${value}`);
   switch (typeOfValue) {
     case 'string':
-      valueForRender = `'${value}'`;
-      break;
+      // valueForRender = `'${value}'`;
+      return `'${value}'`;
+      // break;
     case 'boolean':
-      valueForRender = value;
-      break;
+      // valueForRender = value;
+      // break;
+      return value;
     case 'object':
-      valueForRender = '[complex value]';
-      break;
+      // valueForRender = '[complex value]';
+      // break;
+      return '[complex value]';
     default:
-      valueForRender = value;
+      // valueForRender = value;
+      return value;
   }
-  return valueForRender;
+  // return valueForRender;
 };
 
 const renderPlain1 = (different, path = '') => {

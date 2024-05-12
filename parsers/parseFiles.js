@@ -10,14 +10,14 @@ const getExtension = (filePath) => {
 const getParsedFileByExtention = (extention, data) => {
   // console.log(result1);
   // console.log(result2);
-  let result;
+  // let result;
   if (extention === 'json') {
-    result = JSON.parse(data);
+    return JSON.parse(data);
   }
-  if (extention === 'yaml' || extention === 'yml') {
-    result = yaml.load(data);
-  }
-  return result;
+  // if (extention === 'yaml' || extention === 'yml') {
+  return yaml.load(data);
+  // }
+  // return result;
 };
 
 const parseFiles = (f1, f2) => {
