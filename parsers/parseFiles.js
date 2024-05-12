@@ -28,11 +28,10 @@ const parseFiles = (f1, f2) => {
   const extFile2 = getExtension(f2);
   const data1 = readFileSync(resolvedPath1);
   const data2 = readFileSync(resolvedPath2);
-  console.log(data1);
-  console.log(data2);
-
   const result1 = getParsedFileByExtention(extFile1, data1);
   const result2 = getParsedFileByExtention(extFile2, data2);
+  console.log(result1);
+  console.log(result2);
 
   return { result1, result2 };
 };
