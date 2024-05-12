@@ -14,7 +14,7 @@ const getParsedFileByExtention = (extention, data) => {
   if (extention === 'json') {
     result = JSON.parse(data);
   }
-  if (extention === 'yaml') {
+  if (extention === 'yaml' || extention === 'yml') {
     result = yaml.load(data);
   }
   return result;
