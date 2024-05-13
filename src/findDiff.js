@@ -1,16 +1,17 @@
 import union from 'lodash/union.js';
 import has from 'lodash/has.js';
 // import sortedUniq from 'lodash/sortedUniq';
+import sortBy from 'lodash/sortBy';
 
 const findDiff = (obj1, obj2) => {
   const key1 = Object.keys(obj1 ?? {});
   const key2 = Object.keys(obj2 ?? {});
   const commonKeys = union(key1, key2);
-  // const sortedKeys1 = sortedUniq(commonKeys);
+  const sortedKeys1 = sortBy(commonKeys);
   // console.log(`sortedKeys1 = ${sortedKeys1}`);
-  const sortedKeys = commonKeys.sort();
+  // const sortedKeys = commonKeys.sort();
   // console.log(`sortedKeys = ${sortedKeys}`);
-  const result = sortedKeys.map((key) => {
+  const result = sortedKeys1.map((key) => {
     if (!has(obj2, key)) {
       return {
         name: key,
