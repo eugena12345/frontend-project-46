@@ -13,11 +13,21 @@ const forObjPrintFunc = (object) => {
   return result;
 };
 
-const renderStylish = (differentObj, deep = 1) => {
-  let numberRepeatSpace = numberSymbol * deep - numberSymbolForDelete;
-  if (numberRepeatSpace < 0) {
-    numberRepeatSpace = 0;
+const getnumberRepeatSpace = (deep) => {
+  const result = numberSymbol * deep - numberSymbolForDelete;
+  if (result < 0) {
+    return 0;
   }
+  return result;
+};
+
+const renderStylish = (differentObj, deep = 1) => {
+  // let numberRepeatSpace = numberSymbol * deep - numberSymbolForDelete; // не нравится let
+  // и его переназначение в 19-20 строке
+  // if (numberRepeatSpace < 0) {
+  //   numberRepeatSpace = 0;
+  // }
+  const numberRepeatSpace = getnumberRepeatSpace(deep);
   const space = ' '.repeat(numberRepeatSpace);
   const spaceForEnd = ' '.repeat(numberRepeatSpace - numberSymbolForDelete);
   const newDeep = deep + 1;
@@ -25,8 +35,8 @@ const renderStylish = (differentObj, deep = 1) => {
     if (element.children) {
       return `${space}  ${element.name}: ${renderStylish(element.children, newDeep)}\n`;
     }
-    let correctBeforeValue = element.beforeValue;
-    let correctAfterValue = element.afterValue;
+    let correctBeforeValue = element.beforeValue; // не нравится let
+    let correctAfterValue = element.afterValue; // не нравится let
     if (typeof (element.beforeValue) === 'object' && element.beforeValue !== null) {
       const objForPrint = forObjPrintFunc(element.beforeValue);
       correctBeforeValue = renderStylish(objForPrint, newDeep);
