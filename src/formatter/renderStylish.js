@@ -32,31 +32,73 @@ const renderStylish = (differentObj, deep = 1) => {
   const spaceForEnd = ' '.repeat(numberRepeatSpace - numberSymbolForDelete);
   const newDeep = deep + 1;
   const string = differentObj.map((element) => {
-    if (element.children) {
-      return `${space}  ${element.name}: ${renderStylish(element.children, newDeep)}\n`;
-    }
-    let correctBeforeValue = element.beforeValue; // не нравится let
-    let correctAfterValue = element.afterValue; // не нравится let
-    if (typeof (element.beforeValue) === 'object' && element.beforeValue !== null) {
-      const objForPrint = forObjPrintFunc(element.beforeValue);
-      correctBeforeValue = renderStylish(objForPrint, newDeep);
-    }
-    if (typeof (element.afterValue) === 'object' && element.afterValue !== null) {
-      const objForPrint = forObjPrintFunc(element.afterValue);
-      correctAfterValue = renderStylish(objForPrint, newDeep);
-    }
     if (element.type === 'removed') {
-      return `${space}- ${element.name}: ${correctBeforeValue}\n`;
+      if (typeof (element.beforeValue) === 'object') {
+        const objForPrint = forObjPrintFunc(element.beforeValue);
+        const correctBeforeValue = renderStylish(objForPrint, newDeep);
+        return `${space}- ${element.name}: ${correctBeforeValue}\n`;
+      }
+      return `${space}- ${element.name}: ${element.beforeValue}\n`;
     }
     if (element.type === 'added') {
-      return `${space}+ ${element.name}: ${correctAfterValue}\n`;
+      if (typeof (element.afterValue) === 'object') {
+        const objForPrint = forObjPrintFunc(element.afterValue);
+        const correctAfterValue = renderStylish(objForPrint, newDeep);
+        return `${space}+ ${element.name}: ${correctAfterValue}\n`;
+      }
+      return `${space}+ ${element.name}: ${element.afterValue}\n`;
     }
     if (element.type === 'unchanged') {
-      return `${space}  ${element.name}: ${correctAfterValue}\n`;
+      if (typeof (element.afterValue) === 'object') {
+        const objForPrint = forObjPrintFunc(element.afterValue);
+        const correctUnchangedAfterValue = renderStylish(objForPrint, newDeep);
+        return `${space}  ${element.name}: ${correctUnchangedAfterValue}\n`;
+      }
+      return `${space}  ${element.name}: ${element.afterValue}\n`;
     }
-    if (element.type === 'changed' && element.children === null) {
-      return `${space}- ${element.name}: ${correctBeforeValue}\n${space}+ ${element.name}: ${correctAfterValue}\n`;
+    if (element.type === 'changed') {
+      if ((typeof (element.afterValue) === 'object') && (typeof (element.beforeValue) === 'object')) {
+        const objForPrintAfter = forObjPrintFunc(element.afterValue);
+        const correctUnchangedAfterValue = renderStylish(objForPrintAfter, newDeep);
+        const objForPrintBefore = forObjPrintFunc(element.beforeValue);
+        const correctUnchangedBeforeValue = renderStylish(objForPrintBefore, newDeep);
+        return `${space}- ${element.name}: ${correctUnchangedBeforeValue}\n${space}+ ${element.name}: ${correctUnchangedAfterValue}\n`;
+      }
+      if (typeof (element.afterValue) === 'object' && element.afterValue !== null) {
+        const objForPrintAfter = forObjPrintFunc(element.afterValue);
+        const correctUnchangedAfterValue = renderStylish(objForPrintAfter, newDeep);
+        // const objForPrintBefore = forObjPrintFunc(element.afterValue);
+        // const correctUnchangedBeforeValue = renderStylish(objForPrintBefore, newDeep);
+        return `${space}- ${element.name}: ${element.beforeValue}\n${space}+ ${element.name}: ${correctUnchangedAfterValue}\n`;
+      }
+      if (typeof (element.beforeValue) === 'object') {
+        // const objForPrintAfter = forObjPrintFunc(element.afterValue);
+        // const correctUnchangedAfterValue = renderStylish(objForPrintAfter, newDeep);
+        const objForPrintBefore = forObjPrintFunc(element.beforeValue);
+        const correctUnchangedBeforeValue = renderStylish(objForPrintBefore, newDeep);
+        return `${space}- ${element.name}: ${correctUnchangedBeforeValue}\n${space}+ ${element.name}: ${element.afterValue}\n`;
+      }
+      return `${space}- ${element.name}: ${element.beforeValue}\n${space}+ ${element.name}: ${element.afterValue}\n`;
     }
+
+    if (element.type === 'nested') {
+      return `${space}  ${element.name}: ${renderStylish(element.children, newDeep)}\n`;
+    }
+    // if (element.children) {
+
+    // }
+
+    // let correctBeforeValue = element.beforeValue; // не нравится let
+    // let correctAfterValue = element.afterValue; // не нравится let
+    // if (typeof (element.beforeValue) === 'object' && element.beforeValue !== null) {
+    //   const objForPrint = forObjPrintFunc(element.beforeValue);
+    //   correctBeforeValue = renderStylish(objForPrint, newDeep);
+    // }
+    // if (typeof (element.afterValue) === 'object' && element.afterValue !== null) {
+    //   const objForPrint = forObjPrintFunc(element.afterValue);
+    //   correctAfterValue = renderStylish(objForPrint, newDeep);
+    // }
+
     return null;
   }).join('');
 

@@ -42,7 +42,7 @@ const findDiff = (obj1, obj2) => {
     if (typeof (obj1[key]) === 'object' && typeof (obj2[key]) === 'object' && obj1[key] !== null && obj1[key] !== null) {
       return {
         name: key,
-        type: 'changed', // nested
+        type: 'nested', // nested а было changed
         beforeValue: obj1[key],
         afterValue: obj2[key],
         children: findDiff(obj1[key], obj2[key]),
