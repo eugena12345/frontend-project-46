@@ -1,7 +1,7 @@
 import union from 'lodash/union.js';
 import has from 'lodash/has.js';
 // import sortedUniq from 'lodash/sortedUniq';
-import sortBy from 'lodash/sortBy';
+import sortBy from 'lodash/sortBy.js';
 
 const findDiff = (obj1, obj2) => {
   const key1 = Object.keys(obj1 ?? {});
