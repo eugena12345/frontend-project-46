@@ -1,4 +1,4 @@
-import { test, expect, beforeAll } from '@jest/globals';
+import { test, expect } from '@jest/globals'; // beforeAll
 import fs from 'fs';
 import checkFiles from '../src/checkFiles.js';
 
@@ -68,10 +68,10 @@ const result2 = `{
         fee: 100500
     }
 }`;
-let resultPlain;
-beforeAll(() => {
-  resultPlain = fs.readFileSync('__tests__/__fixtures__/plainResult', 'utf-8');
-});
+// let resultPlain;
+// beforeAll(() => {
+const resultPlain = fs.readFileSync('__tests__/__fixtures__/plainResult', 'utf-8');
+// });
 // здесь есть пустая строка. нужно ли это исправлять???
 
 const fileExtention = ['yaml', 'json'];
