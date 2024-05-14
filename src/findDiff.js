@@ -1,6 +1,5 @@
 import union from 'lodash/union.js';
 import has from 'lodash/has.js';
-// import sortedUniq from 'lodash/sortedUniq';
 import sortBy from 'lodash/sortBy.js';
 
 const findDiff = (obj1, obj2) => {
@@ -8,9 +7,6 @@ const findDiff = (obj1, obj2) => {
   const key2 = Object.keys(obj2 ?? {});
   const commonKeys = union(key1, key2);
   const sortedKeys1 = sortBy(commonKeys);
-  // console.log(`sortedKeys1 = ${sortedKeys1}`);
-  // const sortedKeys = commonKeys.sort();
-  // console.log(`sortedKeys = ${sortedKeys}`);
   const result = sortedKeys1.map((key) => {
     if (!has(obj2, key)) {
       return {
@@ -42,7 +38,7 @@ const findDiff = (obj1, obj2) => {
     if (typeof (obj1[key]) === 'object' && typeof (obj2[key]) === 'object' && obj1[key] !== null && obj1[key] !== null) {
       return {
         name: key,
-        type: 'nested', // nested а было changed
+        type: 'nested',
         beforeValue: obj1[key],
         afterValue: obj2[key],
         children: findDiff(obj1[key], obj2[key]),

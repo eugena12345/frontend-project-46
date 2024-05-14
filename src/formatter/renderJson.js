@@ -1,3 +1,3 @@
-const renderJson = (different) => JSON.stringify(different);// null, '  '
+const renderJson = (different) => JSON.stringify(different);
 
 export default renderJson;

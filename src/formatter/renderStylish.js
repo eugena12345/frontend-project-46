@@ -22,11 +22,6 @@ const getnumberRepeatSpace = (deep) => {
 };
 
 const renderStylish = (differentObj, deep = 1) => {
-  // let numberRepeatSpace = numberSymbol * deep - numberSymbolForDelete; // не нравится let
-  // и его переназначение в 19-20 строке
-  // if (numberRepeatSpace < 0) {
-  //   numberRepeatSpace = 0;
-  // }
   const numberRepeatSpace = getnumberRepeatSpace(deep);
   const space = ' '.repeat(numberRepeatSpace);
   const spaceForEnd = ' '.repeat(numberRepeatSpace - numberSymbolForDelete);
@@ -67,13 +62,9 @@ const renderStylish = (differentObj, deep = 1) => {
       if (typeof (element.afterValue) === 'object' && element.afterValue !== null) {
         const objForPrintAfter = forObjPrintFunc(element.afterValue);
         const correctUnchangedAfterValue = renderStylish(objForPrintAfter, newDeep);
-        // const objForPrintBefore = forObjPrintFunc(element.afterValue);
-        // const correctUnchangedBeforeValue = renderStylish(objForPrintBefore, newDeep);
         return `${space}- ${element.name}: ${element.beforeValue}\n${space}+ ${element.name}: ${correctUnchangedAfterValue}\n`;
       }
       if (typeof (element.beforeValue) === 'object' && element.beforeValue !== null) {
-        // const objForPrintAfter = forObjPrintFunc(element.afterValue);
-        // const correctUnchangedAfterValue = renderStylish(objForPrintAfter, newDeep);
         const objForPrintBefore = forObjPrintFunc(element.beforeValue);
         const correctUnchangedBeforeValue = renderStylish(objForPrintBefore, newDeep);
         return `${space}- ${element.name}: ${correctUnchangedBeforeValue}\n${space}+ ${element.name}: ${element.afterValue}\n`;
@@ -84,24 +75,8 @@ const renderStylish = (differentObj, deep = 1) => {
     if (element.type === 'nested') {
       return `${space}  ${element.name}: ${renderStylish(element.children, newDeep)}\n`;
     }
-    // if (element.children) {
-
-    // }
-
-    // let correctBeforeValue = element.beforeValue; // не нравится let
-    // let correctAfterValue = element.afterValue; // не нравится let
-    // if (typeof (element.beforeValue) === 'object' && element.beforeValue !== null) {
-    //   const objForPrint = forObjPrintFunc(element.beforeValue);
-    //   correctBeforeValue = renderStylish(objForPrint, newDeep);
-    // }
-    // if (typeof (element.afterValue) === 'object' && element.afterValue !== null) {
-    //   const objForPrint = forObjPrintFunc(element.afterValue);
-    //   correctAfterValue = renderStylish(objForPrint, newDeep);
-    // }
-
     return null;
   }).join('');
-
   return `{\n${string}${spaceForEnd}}`;
 };
 

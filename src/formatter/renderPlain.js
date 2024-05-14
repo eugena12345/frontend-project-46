@@ -1,30 +1,18 @@
 const getValueForRender = (value) => {
-  // let valueForRender;
   if (value === null) {
-    // console.log(value);
     return null;
   }
-  // вопрос почему не получается вернуть null без кавычек
   const typeOfValue = typeof (value);
-  // console.log(`typeOfValue ${typeOfValue} value =  ${value}`);
   switch (typeOfValue) {
     case 'string':
-      // valueForRender = `'${value}'`;
       return `'${value}'`;
-      // break;
     case 'boolean':
-      // valueForRender = value;
-      // break;
       return value;
     case 'object':
-      // valueForRender = '[complex value]';
-      // break;
       return '[complex value]';
     default:
-      // valueForRender = value;
       return value;
   }
-  // return valueForRender;
 };
 
 const renderPlain1 = (different, path = '') => {
@@ -43,10 +31,6 @@ const renderPlain1 = (different, path = '') => {
     }
     if (element.type === 'changed') {
       return (`Property '${path}${element.name}' was updated. From ${before} to ${after}\n`);
-    }
-    if (element.type === 'unchanged') {
-      // console.log('hi');
-      // вернуть пустую строчку
     }
     return '';// выбросить исключение (throw err)
   }).join('');
