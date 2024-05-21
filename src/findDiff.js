@@ -1,6 +1,7 @@
 import union from 'lodash/union.js';
 import has from 'lodash/has.js';
 import sortBy from 'lodash/sortBy.js';
+import isObject from 'lodash/isObject.js';
 
 const findDiff = (obj1, obj2) => {
   const key1 = Object.keys(obj1 ?? {});
@@ -35,7 +36,9 @@ const findDiff = (obj1, obj2) => {
         children: null,
       };
     }
-    if (typeof (obj1[key]) === 'object' && typeof (obj2[key]) === 'object' && obj1[key] !== null && obj1[key] !== null) {
+    if (isObject(obj1[key]) && isObject(obj2[key])) {
+      // (typeof (obj1[key]) === 'object' && typeof (obj2[key]) === 'object'
+      // && obj1[key] !== null && obj1[key] !== null)
       return {
         name: key,
         type: 'nested',
