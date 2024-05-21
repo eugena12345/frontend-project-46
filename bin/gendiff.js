@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { program } from 'commander';
-import checkFiles from '../src/checkFiles.js';
+import checkFiles from '../src/index.js';
 
 program
   .name('gendiff')

@@ -1,7 +1,7 @@
 import { test, expect } from '@jest/globals';
 import fs from 'fs';
 import path from 'node:path';
-import checkFiles from '../src/checkFiles.js';
+import checkFiles from '../src/index.js';
 
 const getFilePath = (fileName) => path.resolve(process.cwd(), '__tests__', '__fixtures__', fileName);
 
