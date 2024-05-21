@@ -1,4 +1,4 @@
-import parseFiles from '../parsers/parseFiles.js';
+import parseFiles from './parsers/parseFiles.js';
 import findDiff from './findDiff.js';
 import render from './formatter/index.js';
 
