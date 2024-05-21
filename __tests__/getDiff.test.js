@@ -7,6 +7,7 @@ const getFilePath = (fileName) => path.resolve(process.cwd(), '__tests__', '__fi
 
 const resultStylish = fs.readFileSync(getFilePath('stylishResult'), 'utf-8');
 const resultPlain = fs.readFileSync(getFilePath('plainResult'), 'utf-8');
+const resultJson = JSON.parse(fs.readFileSync(getFilePath('jsonResult')));// !!!!!!!!!!!!!!!!!!!!!!!!!!
 const fileExtention = ['yaml', 'json'];
 
 fileExtention.forEach((ext) => {
@@ -19,5 +20,9 @@ fileExtention.forEach((ext) => {
 
   test(`${ext} test plain format`, () => {
     expect(checkFiles(pathFile1, pathFile2, { format: 'plain' })).toEqual(resultPlain);
+  });
+
+  test(`${ext} test JSON format`, () => {
+    expect(checkFiles(pathFile1, pathFile2, { format: 'json' })).toEqual(resultJson);
   });
 });
