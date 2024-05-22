@@ -28,7 +28,6 @@ const findDiff = (obj1, obj2) => {
     }
     if (isObject(obj1[key]) && isObject(obj2[key])) {
       const children = findDiff(obj1[key], obj2[key]);
-      console.log(children);
       return createNode(obj1, obj2, key, 'nested', children);
     }
     return createNode(obj1, obj2, key, 'changed');
