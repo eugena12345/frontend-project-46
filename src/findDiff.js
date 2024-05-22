@@ -11,7 +11,7 @@ const createNode = (obj1, obj2, key, type, children = null) => ({
   children,
 });
 
-const findDiff = (obj1, obj2) => {
+const buildAst = (obj1, obj2) => {
   const key1 = Object.keys(obj1 ?? {});
   const key2 = Object.keys(obj2 ?? {});
   const commonKeys = union(key1, key2);
@@ -27,11 +27,11 @@ const findDiff = (obj1, obj2) => {
       return createNode(obj1, obj2, key, 'unchanged');
     }
     if (isObject(obj1[key]) && isObject(obj2[key])) {
-      const children = findDiff(obj1[key], obj2[key]);
+      const children = buildAst(obj1[key], obj2[key]);
       return createNode(obj1, obj2, key, 'nested', children);
     }
     return createNode(obj1, obj2, key, 'changed');
   });
   return result;
 };
-export default findDiff;
+export default buildAst;
