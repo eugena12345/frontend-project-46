@@ -20,7 +20,7 @@ const renderPlain1 = (different, path = '') => {
     const newPath = `${path}${element.name}.`;
     const before = getValueForRender(element.beforeValue);
     const after = getValueForRender(element.afterValue);
-    if (element.children) {
+    if (element.type === 'nested') {
       return renderPlain1(element.children, newPath);
     }
     if (element.type === 'removed') {
