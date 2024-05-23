@@ -18,7 +18,6 @@ const checkFiles = (f1, f2, option = { format: 'stylish' }) => {
   const data2 = readFileSync(resolvedPath2);
   const result1 = parseFiles(extFile1, data1);
   const result2 = parseFiles(extFile2, data2);
-  // const { result1, result2 } = parseFiles(f1, f2);
   const different = buildAst(result1, result2);
   console.log(render(different, option.format || option));
   return render(different, option.format || option);
