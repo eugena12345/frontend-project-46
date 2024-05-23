@@ -1,28 +1,34 @@
-import { readFileSync } from 'node:fs';
+// import { readFileSync } from 'node:fs';
 import yaml from 'js-yaml';
-import path from 'node:path';
+// import path from 'node:path';
 
-const getExtension = (filePath) => {
-  const separetedPath = filePath.split('.');
-  return separetedPath[1];
+const extentions = {
+  json: JSON.parse,
+  yaml: yaml.load,
+  yml: yaml.load,
 };
 
-const getParsedFileByExtention = (extention, data) => {
-  if (extention === 'json') {
-    return JSON.parse(data);
-  }
-  return yaml.load(data);
-};
+// const getExtension = (filePath) => {
+//   const separetedPath = filePath.split('.');
+//   return separetedPath[1];
+// };
 
-const parseFiles = (f1, f2) => {
-  const resolvedPath1 = path.resolve(process.cwd(), f1);
-  const resolvedPath2 = path.resolve(process.cwd(), f2);
-  const extFile1 = getExtension(f1);
-  const extFile2 = getExtension(f2);
-  const data1 = readFileSync(resolvedPath1);
-  const data2 = readFileSync(resolvedPath2);
-  const result1 = getParsedFileByExtention(extFile1, data1);
-  const result2 = getParsedFileByExtention(extFile2, data2);
-  return { result1, result2 };
-};
-export default parseFiles;
+// const getParsedFileByExtention = (extention, data) => {
+//   if (extention === 'json') {
+//     return JSON.parse(data);
+//   }
+//   return yaml.load(data);
+// };
+
+// const parseFiles = (f1, f2) => {
+//   const resolvedPath1 = path.resolve(process.cwd(), f1);
+//   const resolvedPath2 = path.resolve(process.cwd(), f2);
+//   const extFile1 = getExtension(f1);
+//   const extFile2 = getExtension(f2);
+//   const data1 = readFileSync(resolvedPath1);
+//   const data2 = readFileSync(resolvedPath2);
+//   const result1 = getParsedFileByExtention(extFile1, data1);
+//   const result2 = getParsedFileByExtention(extFile2, data2);
+//   return { result1, result2 };
+// };
+export default (extention, data) => extentions[extention](data);
