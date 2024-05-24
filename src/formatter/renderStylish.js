@@ -1,17 +1,7 @@
+import isObject from 'lodash/isObject.js';
+
 const numberSymbol = 4;
 const numberSymbolForDelete = 2;
-
-const forObjPrintFunc = (object) => {
-  const keys = Object.keys(object);
-  const result = keys.map((key) => ({
-    name: key,
-    type: 'unchanged',
-    beforeValue: object[key],
-    afterValue: object[key],
-    children: null,
-  }));
-  return result;
-};
 
 const getnumberRepeatSpace = (deep) => {
   const result = numberSymbol * deep - numberSymbolForDelete;
@@ -21,6 +11,23 @@ const getnumberRepeatSpace = (deep) => {
   return result;
 };
 
+const renderValue = (value, deepRS) => {
+  if (isObject(value)) {
+    const numberRepeatSpaceRS = getnumberRepeatSpace(deepRS);
+    const spaceRS = ' '.repeat(numberRepeatSpaceRS);
+    const spaceForEndRS = ' '.repeat(numberRepeatSpaceRS - numberSymbolForDelete);
+    const newDeepRS = deepRS + 1;
+    const keys = Object.keys(value);
+    const resultString = keys.map((key) => {
+      const lastSign = keys.indexOf(key) === (keys.length - 1) ? '' : '\n';
+      const stringForRender = `${spaceRS}  ${key}: ${renderValue(value[key], newDeepRS)}${lastSign}`;
+      return stringForRender;
+    });
+    return `{\n${resultString.join('')}\n${spaceForEndRS}}`;
+  }
+  return `${value}`;
+};
+
 const renderStylish = (differentObj, deep = 1) => {
   const numberRepeatSpace = getnumberRepeatSpace(deep);
   const space = ' '.repeat(numberRepeatSpace);
@@ -28,50 +35,17 @@ const renderStylish = (differentObj, deep = 1) => {
   const newDeep = deep + 1;
   const string = differentObj.map((element) => {
     if (element.type === 'removed') {
-      if (typeof (element.beforeValue) === 'object' && element.beforeValue !== null) {
-        const objForPrint = forObjPrintFunc(element.beforeValue);
-        const correctBeforeValue = renderStylish(objForPrint, newDeep);
-        return `${space}- ${element.name}: ${correctBeforeValue}\n`;
-      }
-      return `${space}- ${element.name}: ${element.beforeValue}\n`;
+      return `${space}- ${element.name}: ${renderValue(element.beforeValue, newDeep)}\n`;
     }
     if (element.type === 'added') {
-      if (typeof (element.afterValue) === 'object' && element.afterValue !== null) {
-        const objForPrint = forObjPrintFunc(element.afterValue);
-        const correctAfterValue = renderStylish(objForPrint, newDeep);
-        return `${space}+ ${element.name}: ${correctAfterValue}\n`;
-      }
-      return `${space}+ ${element.name}: ${element.afterValue}\n`;
+      return `${space}+ ${element.name}: ${renderValue(element.afterValue, newDeep)}\n`;
     }
     if (element.type === 'unchanged') {
-      if (typeof (element.afterValue) === 'object' && element.afterValue !== null) {
-        const objForPrint = forObjPrintFunc(element.afterValue);
-        const correctUnchangedAfterValue = renderStylish(objForPrint, newDeep);
-        return `${space}  ${element.name}: ${correctUnchangedAfterValue}\n`;
-      }
-      return `${space}  ${element.name}: ${element.afterValue}\n`;
+      return `${space}  ${element.name}: ${renderValue(element.afterValue, newDeep)}\n`;
     }
     if (element.type === 'changed') {
-      if ((typeof (element.afterValue) === 'object') && (typeof (element.beforeValue) === 'object') && element.afterValue !== null && element.beforeValue !== null) {
-        const objForPrintAfter = forObjPrintFunc(element.afterValue);
-        const correctUnchangedAfterValue = renderStylish(objForPrintAfter, newDeep);
-        const objForPrintBefore = forObjPrintFunc(element.beforeValue);
-        const correctUnchangedBeforeValue = renderStylish(objForPrintBefore, newDeep);
-        return `${space}- ${element.name}: ${correctUnchangedBeforeValue}\n${space}+ ${element.name}: ${correctUnchangedAfterValue}\n`;
-      }
-      if (typeof (element.afterValue) === 'object' && element.afterValue !== null) {
-        const objForPrintAfter = forObjPrintFunc(element.afterValue);
-        const correctUnchangedAfterValue = renderStylish(objForPrintAfter, newDeep);
-        return `${space}- ${element.name}: ${element.beforeValue}\n${space}+ ${element.name}: ${correctUnchangedAfterValue}\n`;
-      }
-      if (typeof (element.beforeValue) === 'object' && element.beforeValue !== null) {
-        const objForPrintBefore = forObjPrintFunc(element.beforeValue);
-        const correctUnchangedBeforeValue = renderStylish(objForPrintBefore, newDeep);
-        return `${space}- ${element.name}: ${correctUnchangedBeforeValue}\n${space}+ ${element.name}: ${element.afterValue}\n`;
-      }
-      return `${space}- ${element.name}: ${element.beforeValue}\n${space}+ ${element.name}: ${element.afterValue}\n`;
+      return `${space}- ${element.name}: ${renderValue(element.beforeValue, newDeep)}\n${space}+ ${element.name}: ${renderValue(element.afterValue, newDeep)}\n`;
     }
-
     if (element.type === 'nested') {
       return `${space}  ${element.name}: ${renderStylish(element.children, newDeep)}\n`;
     }
