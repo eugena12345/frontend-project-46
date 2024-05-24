@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import parseFiles from './parsers/parseFiles.js';
-import buildAst from './findDiff.js';
+import buildAst from './buildAst.js';
 import render from './formatter/index.js';
 
 const getExtension = (filePath) => {
