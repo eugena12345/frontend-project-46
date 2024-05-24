@@ -34,22 +34,18 @@ const renderStylish = (differentObj, deep = 1) => {
   const spaceForEnd = ' '.repeat(numberRepeatSpace - numberSymbolForDelete);
   const newDeep = deep + 1;
   const string = differentObj.map((element) => {
-    if (element.type === 'removed') {
-      return `${space}- ${element.name}: ${renderValue(element.beforeValue, newDeep)}\n`;
+    switch (element.type) {
+      case 'removed':
+        return `${space}- ${element.name}: ${renderValue(element.beforeValue, newDeep)}\n`;
+      case 'added':
+        return `${space}+ ${element.name}: ${renderValue(element.afterValue, newDeep)}\n`;
+      case 'unchanged':
+        return `${space}  ${element.name}: ${renderValue(element.afterValue, newDeep)}\n`;
+      case 'changed':
+        return `${space}- ${element.name}: ${renderValue(element.beforeValue, newDeep)}\n${space}+ ${element.name}: ${renderValue(element.afterValue, newDeep)}\n`;
+      default:
+        return `${space}  ${element.name}: ${renderStylish(element.children, newDeep)}\n`;
     }
-    if (element.type === 'added') {
-      return `${space}+ ${element.name}: ${renderValue(element.afterValue, newDeep)}\n`;
-    }
-    if (element.type === 'unchanged') {
-      return `${space}  ${element.name}: ${renderValue(element.afterValue, newDeep)}\n`;
-    }
-    if (element.type === 'changed') {
-      return `${space}- ${element.name}: ${renderValue(element.beforeValue, newDeep)}\n${space}+ ${element.name}: ${renderValue(element.afterValue, newDeep)}\n`;
-    }
-    if (element.type === 'nested') {
-      return `${space}  ${element.name}: ${renderStylish(element.children, newDeep)}\n`;
-    }
-    return null;
   }).join('');
   return `{\n${string}${spaceForEnd}}`;
 };
