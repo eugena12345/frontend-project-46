@@ -15,31 +15,29 @@ const getValueForRender = (value) => {
   }
 };
 
-const renderPlain1 = (different, path = '') => {
-  const result = different.map((element) => {
+const getAnswerForType = {
+  added: (path, elementName, after) => [`Property '${path}${elementName}' was added with value: ${after}`],
+  removed: (path, elementName) => [`Property '${path}${elementName}' was removed`],
+  changed: (path, elementName, after, before) => [`Property '${path}${elementName}' was updated. From ${before} to ${after}`],
+  // nested: (children, newPath) => renderPlain(children, newPath),
+  unchanged: () => [],
+};
+
+const renderPlain = (different, path = '') => {
+  const result = different.flatMap((element) => {
     const newPath = `${path}${element.name}.`;
     const before = getValueForRender(element.beforeValue);
     const after = getValueForRender(element.afterValue);
-    if (element.type === 'nested') {
-      return renderPlain1(element.children, newPath);
+    if (element.type) {
+      if (element.type === 'nested') {
+        return renderPlain(element.children, newPath);
+        // getAnswerForType[element.type](element.children, newPath);
+      }
+      return getAnswerForType[element.type](path, element.name, after, before);
     }
-    if (element.type === 'removed') {
-      return (`Property '${path}${element.name}' was removed\n`);
-    }
-    if (element.type === 'added') {
-      return (`Property '${path}${element.name}' was added with value: ${after}\n`);
-    }
-    if (element.type === 'changed') {
-      return (`Property '${path}${element.name}' was updated. From ${before} to ${after}\n`);
-    }
-    return '';// выбросить исключение (throw err)
-  }).join('');
+    throw Error(`Unknow type ${element.type}`);
+  }).join('\n');
   return result;
-};
-
-const renderPlain = (different) => {
-  const resultString = renderPlain1(different);
-  return resultString.trim();
 };
 
 export default renderPlain;
