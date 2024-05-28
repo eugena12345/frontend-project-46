@@ -6,8 +6,6 @@ const getValueForRender = (value) => {
   switch (typeOfValue) {
     case 'string':
       return `'${value}'`;
-    case 'boolean':
-      return value;
     case 'object':
       return '[complex value]';
     default:
