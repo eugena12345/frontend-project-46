@@ -19,7 +19,7 @@ const getAnswerForType = {
   added: (path, elementName, after) => [`Property '${path}${elementName}' was added with value: ${after}`],
   removed: (path, elementName) => [`Property '${path}${elementName}' was removed`],
   changed: (path, elementName, after, before) => [`Property '${path}${elementName}' was updated. From ${before} to ${after}`],
-  // nested: (children, newPath) => renderPlain(children, newPath),
+  nested: (children, newPath, renderPlain) => renderPlain(children, newPath),
   unchanged: () => [],
 };
 
@@ -30,8 +30,7 @@ const renderPlain = (different, path = '') => {
     const after = getValueForRender(element.afterValue);
     if (element.type) {
       if (element.type === 'nested') {
-        return renderPlain(element.children, newPath);
-        // getAnswerForType[element.type](element.children, newPath);
+        return getAnswerForType[element.type](element.children, newPath, renderPlain);
       }
       return getAnswerForType[element.type](path, element.name, after, before);
     }
