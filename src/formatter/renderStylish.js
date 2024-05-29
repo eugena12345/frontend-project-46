@@ -43,8 +43,10 @@ const renderStylish = (differentObj, deep = 1) => {
         return `${space}  ${element.name}: ${renderValue(element.afterValue, newDeep)}\n`;
       case 'changed':
         return `${space}- ${element.name}: ${renderValue(element.beforeValue, newDeep)}\n${space}+ ${element.name}: ${renderValue(element.afterValue, newDeep)}\n`;
-      default:
+      case 'nested':
         return `${space}  ${element.name}: ${renderStylish(element.children, newDeep)}\n`;
+      default:
+        throw Error(`Unknow type ${element.type}`);
     }
   }).join('');
   return `{\n${string}${spaceForEnd}}`;
